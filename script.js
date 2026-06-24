@@ -1,9 +1,17 @@
-import { add, subtract, multiply, divide } from "./mathsFunctions.js"
+import fs from "fs"
 
-console.log(add(2, 3))
+fs.readFile("./files/starter.txt", "utf-8", (err, data) =>{
 
-console.log(subtract(8, 5))
+    if(err) throw err
+    
+    console.log(data)
 
-console.log(multiply(5, 4))
+})
 
-console.log(divide(10, 2))  
+process.on("uncaughtException", err =>{
+
+    console.log(err.message)
+    
+    process.exit(1)
+
+})
