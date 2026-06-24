@@ -1,11 +1,9 @@
-import os from "os"
+import { add, subtract, multiply, divide } from "./mathsFunctions.js"
 
-console.log('Hello World')
+console.log(add(2, 3))
 
-console.log(os.type())
+console.log(subtract(8, 5))
 
-console.log(os.platform())
+console.log(multiply(5, 4))
 
-console.log(os.homedir())
-
-console.log(os.version())  
+console.log(divide(10, 2))  
