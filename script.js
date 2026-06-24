@@ -1,12 +1,9 @@
 import fs from "fs"
 
-const readStream = fs.createReadStream("./files/lorem.txt", { encoding: "utf-8" }),
-      writeStream = fs.createWriteStream("./files/new-lorem-2.txt")
+fs.mkdir("newFolder", err =>{
 
-readStream.on("data", chunk =>{
+    if(err) throw err
 
-    writeStream.write(chunk)
-    
+    console.log("Folder Created")
+
 })
-
-readStream.pipe(writeStream)
