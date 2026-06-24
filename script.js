@@ -1,19 +1,9 @@
 import fs from "fs"
 
-fs.readFile("./files/starter.txt", "utf-8", (err, data) =>{
+fs.writeFile("./files/reply.txt", "This is a new file", err =>{
 
     if(err) throw err
-    
-    console.log(data)
 
-})
-
-console.log('Hello...........')
-
-process.on("uncaughtException", err =>{
-
-    console.log(err.message)
-    
-    process.exit(1)
+    console.log("File has been written")
 
 })
