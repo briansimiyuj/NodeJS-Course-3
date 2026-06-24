@@ -1,9 +1,13 @@
 import fs from "fs"
 
-fs.mkdir("newFolder", err =>{
+if(!fs.existsSync("newFolder")){
 
-    if(err) throw err
+    fs.mkdir("newFolder", err =>{
 
-    console.log("Folder Created")
+        if(err) throw err
 
-})
+        console.log("Folder Created")
+
+    })
+
+}
