@@ -1,8 +1,3 @@
-`appendFile` method updates the content of the file, if the file doesn't exist, it creates a new file.
-
-To rename a file, use `rename` method on the `fs` module. It takes three arguments: the current file name, the new file name, and a callback function.
-    `fs.rename(${currentFileName}, ${newFileName}, ${callbackFunction})`
-
-Because of the asynchronous nature of Node.js, we need to put `rename` method inside `appendFile` method's callback function to ensure that the file is renamed only after it has been created and updated.
+For asynchronous file operations, use the fs/promises module. 
 
 video #2

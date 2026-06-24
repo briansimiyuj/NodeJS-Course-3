@@ -1,25 +1,29 @@
-import fs from "fs"
+import fsPromises from "fs/promises"
 
-fs.writeFile("./files/reply.txt", "This is a new file", err =>{
+const fileOps = async() =>{
 
-    if(err) throw err
+    try{
+    
+        const data = await fsPromises.readFile("./files/starter.txt", "utf8")
 
-    console.log("File has been written")
+        await fsPromises.unlink("./files/starter.txt")
 
-    fs.appendFile("./files/reply.txt", "\n\n This is a new line", err =>{
+        await fsPromises.writeFile("./files/promiseWrite.txt", "Jesus is the King of kings")
 
-        if(err) throw err
+        await fsPromises.appendFile("./files/promiseWrite.txt", "\nJesus is the Lord of lords")
 
-        console.log("File has been appended")
+        await fsPromises.rename("./files/promiseWrite.txt", "./files/promiseRename.txt")
 
-        fs.rename("./files/reply.txt", "./files/replied.txt", err =>{
+        const newData = await fsPromises.readFile("./files/promiseRename.txt", "utf8")
 
-            if(err) throw err
+        console.log(newData)
+    
+    }catch(e){
+    
+        console.log(e)
+    
+    }
 
-            console.log("File has been renamed")
-            
-        })
-        
-    })
+}
 
-})
+fileOps()
