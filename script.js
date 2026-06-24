@@ -8,6 +8,8 @@ fs.readFile("./files/starter.txt", "utf-8", (err, data) =>{
 
 })
 
+console.log('Hello...........')
+
 process.on("uncaughtException", err =>{
 
     console.log(err.message)
