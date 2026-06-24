@@ -11,3 +11,15 @@ if(!fs.existsSync("newFolder")){
     })
 
 }
+
+if(fs.existsSync("newFolder")){
+
+    fs.rmdir("newFolder", err =>{
+
+        if(err) throw err
+
+        console.log("Folder Deleted")
+
+    })
+
+}
