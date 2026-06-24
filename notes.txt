@@ -1,1 +1,3 @@
+`appendFile` method updates the content of the file, if the file doesn't exist, it creates a new file.
+
 video #2
