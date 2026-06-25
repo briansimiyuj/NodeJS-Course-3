@@ -1,17 +1,1 @@
-Packages have version numbers. They look like this: 
-    `${majorVersion}.${minorVersion}.${patchVersion}`
-
-If you see `^` in the version number, it means it can update to the next minor version. 
-If you see `~` it means it can update to the next patch version.
-If you see `*` it means it can update to the next major version.
-
-To install a package with a specific version, you can use the following command:
-    `npm install ${packageName}@${versionNumber}`
-
-To update a package to the latest version, you can use the following command:
-    `npm update ${packageName}`
-
-To uninstall a package, you can use the following command:
-    `npm uninstall ${packageName}`
-
-video #3
+video #4

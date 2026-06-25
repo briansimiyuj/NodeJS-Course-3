@@ -1,6 +1,12 @@
-import { format }  from "date-fns"
-import { v4 as uuidv4 } from "uuid"
+import logEvents from "./logEvents.js"
+import EventEmitter from "events"
 
-console.log(format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"))
+const emitter = new EventEmitter()
 
-console.log(uuidv4())
+emitter.on("log", message => logEvents(message))
+
+setTimeout(() =>{
+
+    emitter.emit("log", "log event emitted")
+    
+}, 2000)
