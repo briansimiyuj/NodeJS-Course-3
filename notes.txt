@@ -1,3 +1,3 @@
-For asynchronous file operations, use the fs/promises module. 
+Dependancies are packages that are required for the application to run. When deploying our application, it will be deployed with all of the dependancies.
 
-video #2
+video #3
