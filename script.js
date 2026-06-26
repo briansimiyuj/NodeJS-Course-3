@@ -13,7 +13,7 @@ const serveFile = async(filePath, contentType, response) =>{
 
     try{
 
-        const rawData = await fs.promises.readFile(
+        const rawData = await fs.promises.readFil(
             filePath, 
             !contentType.includes("image") ? "utf-8" : undefined
         )
