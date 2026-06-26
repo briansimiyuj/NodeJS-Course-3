@@ -7,13 +7,21 @@ import fs from "fs"
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000
 
+emitter.on("log", (message, fileName) => logEvents(message, fileName))
+
 const serveFile = async(filePath, contentType, response) =>{
 
     try{
 
-        const rawData = await fs.promises.readFile(filePath, "utf-8")
+        const rawData = await fs.promises.readFile(
+            filePath, 
+            !contentType.includes("image") ? "utf-8" : undefined
+        )
 
-        response.writeHead(200, { "Content-Type": contentType })
+        response.writeHead(
+            filePath.includes("404.html") ? 404 : 200,
+            { "Content-Type": contentType }
+        )
 
         response.end(rawData)
 
@@ -23,6 +31,8 @@ const serveFile = async(filePath, contentType, response) =>{
 
         response.statusCode = 500 
 
+        emitter.emit("log", `${err.name}\t${err.message}`, "errLog")
+
         response.end()
 
     }
@@ -30,6 +40,8 @@ const serveFile = async(filePath, contentType, response) =>{
 }
 
 const server = http.createServer((req, res) =>{
+
+    emitter.emit("log", `${req.url}\t${req.method}`,  "reqLog")
 
     const extension = path.extname(req.url)
 
@@ -117,8 +129,6 @@ const server = http.createServer((req, res) =>{
         }
 
     }
-
-    emitter.emit("log", `${req.url} ${req.method}`)
 
     console.log(req.url, req.method, res.statusCode)
 
