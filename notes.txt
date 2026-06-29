@@ -1,9 +1,6 @@
-There are 3 types of middlewares: custom, built-in, and third-party
+CORS is a middleware that allows you to specify which domains can access your API. Basically, servers and browsers have an ideal way to fetch data from each other. By default, browsers do not allow you to fetch data from a different origins. CORS is a way to allow a server to specify which origins can access its data.
 
-`app.use(express.urlencoded({ extended: false }))` is used to get data from the body of a request, e.g form data
-
-`app.use(express.json())` is used to get data from the body of a request, e.g json data
-
-app.use(express.static(join(__dirName, "public"))) is used to serve static files, e.g images, css, js
+An Origin is a combination of the protocol, host, and port of a URL. For example, if you have a server running on localhost:3000, the origin would be http://localhost:3000.
+    `${protocol}://${host}:${port}`
 
 video #7
