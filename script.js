@@ -1,5 +1,6 @@
-import logEvents from "./middleware/logEvents.js"
+import { logger, logEvents } from "./middleware/logEvents.js"
 import EventEmitter from "events"
+import cors from "cors"
 import http from "http"
 import path, { dirname, join } from "path"
 import fs from "fs"
@@ -13,15 +14,9 @@ const emitter = new EventEmitter(),
 
 const app = express()
 
-app.use((req, res, next) =>{
+app.use(logger)
 
-    logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`, "reqLog")
-
-    console.log(`${req.method} ${req.url}`)
-
-    next()
-    
-})
+app.use(cors())
 
 app.use(express.urlencoded({ extended: false }))
 

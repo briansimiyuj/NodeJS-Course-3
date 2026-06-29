@@ -25,4 +25,14 @@ const logEvents = async(message, logName) =>{
 
 }
 
-export default logEvents
+const logger = ((req, res, next) =>{
+
+    logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`, "reqLog")
+
+    console.log(`${req.method} ${req.url}`)
+
+    next()
+    
+})
+
+export { logEvents, logger }
