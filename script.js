@@ -1,4 +1,4 @@
-import logEvents from "./logEvents.js"
+import logEvents from "./middleware/logEvents.js"
 import EventEmitter from "events"
 import http from "http"
 import path, { dirname, join } from "path"
@@ -12,6 +12,16 @@ const emitter = new EventEmitter(),
       __dirName = dirname(__fileName)
 
 const app = express()
+
+app.use((req, res, next) =>{
+
+    logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`, "reqLog")
+
+    console.log(`${req.method} ${req.url}`)
+
+    next()
+    
+})
 
 app.use(express.urlencoded({ extended: false }))
 
