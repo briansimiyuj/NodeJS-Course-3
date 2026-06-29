@@ -13,6 +13,12 @@ const emitter = new EventEmitter(),
 
 const app = express()
 
+app.use(express.urlencoded({ extended: false }))
+
+app.use(express.json())
+
+app.use(express.static(join(__dirName, "public")))
+
 app.get("/", (req, res) =>{
 
     res.sendFile(join(__dirName, "views/index.html"))

@@ -1,1 +1,9 @@
-video #6
+There are 3 types of middlewares: custom, built-in, and third-party
+
+`app.use(express.urlencoded({ extended: false }))` is used to get data from the body of a request, e.g form data
+
+`app.use(express.json())` is used to get data from the body of a request, e.g json data
+
+app.use(express.static(join(__dirName, "public"))) is used to serve static files, e.g images, css, js
+
+video #7
