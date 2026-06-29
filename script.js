@@ -6,6 +6,7 @@ import path, { dirname, join } from "path"
 import fs from "fs"
 import express from "express"
 import { fileURLToPath } from "url"
+import errorHandler from "./middleware/errorHandler.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -69,12 +70,6 @@ app.use((req, res) =>{
 
 })
 
-app.use((err, req, res, next) =>{
-
-    console.error(err.stack)
-
-    res.status(500).send(err.message)
-    
-})
+app.use(errorHandler)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
