@@ -21,7 +21,7 @@ const whiteList = ["http://localhost:3000",  "https://www.google.com"],
 
             origin: (origin, callback) =>{
                 
-                if(whiteList.indexOf(origin) !== -1){
+                if(whiteList.indexOf(origin) !== -1 || !origin){
 
                     callback(null, true)
 
@@ -67,6 +67,14 @@ app.use((req, res) =>{
 
     res.status(404).sendFile(join(__dirName, "views/404.html"))
 
+})
+
+app.use((err, req, res, next) =>{
+
+    console.error(err.stack)
+
+    res.status(500).send(err.message)
+    
 })
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
