@@ -8,6 +8,7 @@ import express from "express"
 import { fileURLToPath } from "url"
 import errorHandler from "./middleware/errorHandler.js"
 import router from "./routes/subDir.js"
+import rootRouter from "./routes/root.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -49,17 +50,7 @@ app.use(express.static(join(__dirName, "public")))
 
 app.use("/subdir", router)
 
-app.get(["/new-page", "/new-page.html"], (req, res) =>{
-
-    res.sendFile(join(__dirName, "views/new-page.html"))
-
-})
-
-app.get(["/old-page", "/old-page.html"], (req, res) =>{
-
-    res.redirect(301, '/new-page')
-
-})
+app.use("/", rootRouter)
 
 app.use((req, res) =>{
 
