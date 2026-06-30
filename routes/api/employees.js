@@ -1,50 +1,20 @@
 import express from "express"
 import path from "path"
-import employees from "../../public/data/employees.json" with { type: "json" }
+import { createNewEmployee, deleteEmployee, getAllEmployees, getEmployee, updateEmployee } from "../../controllers/employeeController.js"
 
 const employeesRouter = express.Router(),
       data = {}
 
 employeesRouter.route("/")
-    .get((req, res) =>{
-    
-       res.json(employees)
-    
-    })
+    .get(getAllEmployees)
 
-    .post((req, res) =>{
+    .post(createNewEmployee)
 
-        res.json({
-            
-            "firstName": req.body.firstName,
-            "lastName": req.body.lastName
+    .put(updateEmployee)
 
-        })
-
-    })
-
-    .put((req, res) =>{
-
-        res.json({
-
-            "firstName": req.body.firstName,
-            "lastName": req.body.lastName
-            
-        })
-
-    })
-
-    .delete((req, res) =>{
-        
-        res.json({ "_id": req.body.id })
-
-    })
+    .delete(deleteEmployee)
 
 employeesRouter.route("/:id")
-    .get((req, res) =>{
-    
-       res.json({ "_id": req.params.id })
-    
-    }) 
+    .get(getEmployee) 
 
 export default employeesRouter
