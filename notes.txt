@@ -1,6 +1,1 @@
-CORS is a middleware that allows you to specify which domains can access your API. Basically, servers and browsers have an ideal way to fetch data from each other. By default, browsers do not allow you to fetch data from a different origins. CORS is a way to allow a server to specify which origins can access its data.
-
-An Origin is a combination of the protocol, host, and port of a URL. For example, if you have a server running on localhost:3000, the origin would be http://localhost:3000.
-    `${protocol}://${host}:${port}`
-
-video #7
+video #8

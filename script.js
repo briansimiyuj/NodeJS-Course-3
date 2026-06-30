@@ -7,6 +7,7 @@ import fs from "fs"
 import express from "express"
 import { fileURLToPath } from "url"
 import errorHandler from "./middleware/errorHandler.js"
+import router from "./routes/subDir.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -46,11 +47,7 @@ app.use(express.json())
 
 app.use(express.static(join(__dirName, "public")))
 
-app.get("/", (req, res) =>{
-
-    res.sendFile(join(__dirName, "views/index.html"))
-    
-})
+app.use("/subdir", router)
 
 app.get(["/new-page", "/new-page.html"], (req, res) =>{
 
