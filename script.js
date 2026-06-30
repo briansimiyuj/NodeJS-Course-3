@@ -7,9 +7,9 @@ import fs from "fs"
 import express from "express"
 import { fileURLToPath } from "url"
 import errorHandler from "./middleware/errorHandler.js"
-import router from "./routes/subDir.js"
 import rootRouter from "./routes/root.js"
 import employeesRouter from "./routes/api/employees.js"
+import corsOptions from "./config/corsOptions.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -20,27 +20,6 @@ const app = express()
 
 app.use(logger)
 
-const whiteList = ["http://localhost:3000",  "https://www.google.com"],
-        corsOptions ={
-
-            origin: (origin, callback) =>{
-                
-                if(whiteList.indexOf(origin) !== -1 || !origin){
-
-                    callback(null, true)
-
-                }else{
-
-                    callback(new Error("Not allowed by CORS"))
-
-                }
-
-            },
-
-            optionsSuccessStatus: 200   
-            
-        }
-
 app.use(cors(corsOptions))
 
 app.use(express.urlencoded({ extended: false }))
@@ -48,8 +27,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use(express.static(join(__dirName, "public")))
-
-app.use("/subdir", router)
 
 app.use("/", rootRouter)
 

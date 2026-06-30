@@ -13,16 +13,4 @@ rootRouter.get("/", (req, res) =>{
 
 })
 
-rootRouter.get(["/new-page", "/new-page.html"], (req, res) =>{
-
-    res.sendFile(join(__dirName, "../views/new-page.html"))
-
-})
-
-rootRouter.get(["/old-page", "/old-page.html"], (req, res) =>{
-
-    res.redirect(301, '/new-page')
-
-})
-
 export default rootRouter
