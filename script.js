@@ -9,6 +9,7 @@ import { fileURLToPath } from "url"
 import errorHandler from "./middleware/errorHandler.js"
 import router from "./routes/subDir.js"
 import rootRouter from "./routes/root.js"
+import employeesRouter from "./routes/api/employees.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -51,6 +52,8 @@ app.use(express.static(join(__dirName, "public")))
 app.use("/subdir", router)
 
 app.use("/", rootRouter)
+
+app.use("/employees", employeesRouter)
 
 app.use((req, res) =>{
 
