@@ -11,6 +11,7 @@ import rootRouter from "./routes/root.js"
 import employeesRouter from "./routes/api/employees.js"
 import corsOptions from "./config/corsOptions.js"
 import registerRouter from "./routes/register.js"
+import authRouter from "./routes/auth.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -32,6 +33,8 @@ app.use(express.static(join(__dirName, "public")))
 app.use("/", rootRouter)
 
 app.use("/register", registerRouter)
+
+app.use("/auth", authRouter)
 
 app.use("/employees", employeesRouter)
 

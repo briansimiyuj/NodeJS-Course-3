@@ -5,4 +5,6 @@ Let's create a `handleSignIn` route handler in `authController.js`: then we dest
 
 If the username exists, we compare the password with the hashed password in the database. If the passwords match, we send back 200 status code with success message. If they don't match, we send back 401 status code with error message.
 
+We create a `auth.js` route to handle the signin route. We instantiate the express router and use the `POST` method to handle the signin route. Then call the `handleSignIn` function
+
 video #9
