@@ -14,4 +14,7 @@ If the username is unique, we create a new user object with the username and pas
 
 Then we push the new user object to the `users` array and send back a 201 status code and a message
 
+We create a `register.js` route to handle the signup route. We instantiate the `express.Router` 
+We use `POST` method to handle the signup route then call the `handleNewUser` function.
+
 video #9
