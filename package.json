@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/briansimiyuj/NodeJS-Course-3#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "date-fns": "^4.4.0",
     "express": "^5.2.1",
