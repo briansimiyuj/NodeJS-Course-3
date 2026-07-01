@@ -1,20 +1,8 @@
-User Authentication requires 2 routes; one for login and one for signup. Let's create a `registerController.js` file
+We now create `authController.js` to handle the signin logic
 
-We install the `bcrypt` package to hash passwords by the following command:
-    `npm install bcrypt`
+Let's create a `handleSignIn` route handler in `authController.js`: then we destructure the `req` object to get the `username` and `password` fields. If the `username` and `password` fields are empty, we send back 400 status code with error message. If they are not empty, we check if the username exists in the database. If it doesn't exist, we send back 401 status code with error message. 
+    - 401 status code means unauthorized
 
-Let's create a user database simulation using an array of user objects.
-
-We create `handleNewUser` route handler function in `registerController.js` file, then destructure the `req.body` object to get the `username` and `password` fields. 
-If the `username` or `password` fields are empty, we send back a 400 status code and a message 
-
-We check if there is a user with the same username in the `users` array. If there is, we send back a 409 status code which means conflict 
-
-If the username is unique, we create a new user object with the username and password fields. We hash the password using the `bcrypt.hash` method and store the hashed password in the `password` field of the new user object
-
-Then we push the new user object to the `users` array and send back a 201 status code and a message
-
-We create a `register.js` route to handle the signup route. We instantiate the `express.Router` 
-We use `POST` method to handle the signup route then call the `handleNewUser` function.
+If the username exists, we compare the password with the hashed password in the database. If the passwords match, we send back 200 status code with success message. If they don't match, we send back 401 status code with error message.
 
 video #9
