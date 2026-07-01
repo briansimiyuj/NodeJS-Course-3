@@ -10,6 +10,7 @@ import errorHandler from "./middleware/errorHandler.js"
 import rootRouter from "./routes/root.js"
 import employeesRouter from "./routes/api/employees.js"
 import corsOptions from "./config/corsOptions.js"
+import registerRouter from "./routes/register.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -29,6 +30,8 @@ app.use(express.json())
 app.use(express.static(join(__dirName, "public")))
 
 app.use("/", rootRouter)
+
+app.use("/register", registerRouter)
 
 app.use("/employees", employeesRouter)
 
