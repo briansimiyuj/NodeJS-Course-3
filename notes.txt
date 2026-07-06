@@ -1,9 +1,7 @@
-JWT stands for JSON Web Token. It is a form of user identification that is given to the user after they have logged in. 
-When a user is authenticated, REST API will issue two types of tokens: access token and refresh token. Access token is short-lived and refresh token is long-lived.
+Let's create .env file  and add the following variables:
+    - `ACCESS_TOKEN_SECRET`
+    - `REFRESH_TOKEN_SECRET`
 
-Access tokens are sent as JSON and should not be stored in local storage or cookies; because they can be easily intercepted by attackers. Refresh tokens are sent as httpOnly cookies and they are not exposed to JavaScript. They must have expiry at some point in time.
-
-We need to install the following packages:
-    `npm i dotenv jsonwebtoken cookie-parser`
+Always include the .env file in the gitignore file
 
 video #11
