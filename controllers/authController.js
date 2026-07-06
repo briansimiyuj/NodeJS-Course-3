@@ -56,7 +56,7 @@ const handleSignIn = async(req, res) =>{
 
         res.cookie("JWT", refreshToken, { httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000 })
 
-        res.join({ accessToken })
+        res.json({ accessToken })
 
     }else{
 
