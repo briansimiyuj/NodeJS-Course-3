@@ -1,3 +1,6 @@
 Now let's create a new middleware to verify JWT, it will be a function called verifyJWT, it will take a request and a response and a next function, and it will check if the request has a valid JWT token. See `middleware/verifyJWT.js`
 
+Then in our employees route, we need to pass verifyJWT in every route that requires authentication, for example:
+    `route.get('/employees', verifyJWT, getEmployees)`
+
 video #11

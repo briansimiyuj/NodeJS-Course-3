@@ -1,1 +1,50 @@
-[{"_id":"1","firstName":"Brian","lastName":"Simiyu"},{"_id":"2","firstName":"Michael","lastName":"Wafula"},{"_id":"3","firstName":"John","lastName":"Kamau"},{"_id":"4","firstName":"David","lastName":"Mwangi"},{"_id":"5","firstName":"Susan","lastName":"Mwangi"},{"_id":"6","firstName":"Mary","lastName":"Wanjiku"},{"_id":"7","firstName":"Becky","lastName":"Atieno"},{"username":"test","password":"$2b$10$mW5PgtBJbBwvRdXUXwNTD.1UInPcMqptopPycjFvs1Ob30K2oWrFW"},{"username":"Njeri","password":"$2b$10$YHcZwDscP4zQc6fHNZ40VOHo5mzQMk4CiTYVleImXEGtxDy/j.lDS"}]
+[
+  {
+    "_id": "1",
+    "firstName": "Brian",
+    "lastName": "Simiyu"
+  },
+  {
+    "_id": "2",
+    "firstName": "Michael",
+    "lastName": "Wafula"
+  },
+  {
+    "_id": "3",
+    "firstName": "John",
+    "lastName": "Kamau"
+  },
+  {
+    "_id": "4",
+    "firstName": "David",
+    "lastName": "Mwangi"
+  },
+  {
+    "_id": "5",
+    "firstName": "Susan",
+    "lastName": "Mwangi"
+  },
+  {
+    "_id": "6",
+    "firstName": "Mary",
+    "lastName": "Wanjiku"
+  },
+  {
+    "_id": "7",
+    "firstName": "Becky",
+    "lastName": "Atieno"
+  },
+  {
+    "username": "test",
+    "password": "$2b$10$mW5PgtBJbBwvRdXUXwNTD.1UInPcMqptopPycjFvs1Ob30K2oWrFW"
+  },
+  {
+    "username": "Njeri",
+    "password": "$2b$10$YHcZwDscP4zQc6fHNZ40VOHo5mzQMk4CiTYVleImXEGtxDy/j.lDS"
+  },
+  {
+    "username": "test1",
+    "password": "$2b$10$DpqG5jYrVHawuoY2tmZoqurjtJpFQoI.cx1at25zV.00ucGONoIAW",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiaWF0IjoxNzgzMzI1NjgxLCJleHAiOjE3ODM0MTIwODF9.gvVYwZYqyYEpm_XKB8eAlRIGz-GJ0ag0fD8DuvNtU6Q"
+  }
+]

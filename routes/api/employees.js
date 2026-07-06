@@ -1,12 +1,13 @@
 import express from "express"
 import path from "path"
 import { createNewEmployee, deleteEmployee, getAllEmployees, getEmployee, updateEmployee } from "../../controllers/employeeController.js"
+import verifyJWT from "../../middleware/verifyJWT.js"
 
 const employeesRouter = express.Router(),
       data = {}
 
 employeesRouter.route("/")
-    .get(getAllEmployees)
+    .get(verifyJWT, getAllEmployees)
 
     .post(createNewEmployee)
 
