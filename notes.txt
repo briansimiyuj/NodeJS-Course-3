@@ -3,4 +3,9 @@ Now let's create a new middleware to verify JWT, it will be a function called ve
 Then in our employees route, we need to pass verifyJWT in every route that requires authentication, for example:
     `route.get('/employees', verifyJWT, getEmployees)`
 
+If we want to protect certain routes, we can place verifyJWT middleware at the top of the route, for example:
+
+    `app.use(${verifyJWT})
+    app.use(${router})`
+
 video #11

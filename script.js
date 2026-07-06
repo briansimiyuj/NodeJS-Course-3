@@ -12,6 +12,7 @@ import employeesRouter from "./routes/api/employees.js"
 import corsOptions from "./config/corsOptions.js"
 import registerRouter from "./routes/register.js"
 import authRouter from "./routes/auth.js"
+import verifyJWT from "./middleware/verifyJWT.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -35,6 +36,8 @@ app.use("/", rootRouter)
 app.use("/register", registerRouter)
 
 app.use("/auth", authRouter)
+
+app.use(verifyJWT)
 
 app.use("/employees", employeesRouter)
 
