@@ -1,7 +1,11 @@
 import fsPromises from "fs/promises"
+import dotenv from "dotenv"
+import JWT from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import path, { dirname, join } from "path"
 import { fileURLToPath } from "url"
+
+dotenv.config()
 
 const __fileName = fileURLToPath(import.meta.url),
       __dirName = path.dirname(__fileName),
@@ -28,7 +32,31 @@ const handleSignIn = async(req, res) =>{
 
     if(match){
 
-        res.json({ "success": `User ${username} signed in!` })
+        const accessToken = JWT.sign(
+
+            { "username": foundUser.username },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "30s" }
+
+        ),
+        refreshToken = JWT.sign(
+
+            { "username": foundUser.username },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: "1d" }
+
+        )
+
+        const otherUsers = userDB.users.filter(person => person.username !== foundUser.username),
+              currentUser = { ...foundUser, refreshToken }
+
+        userDB.setUsers([...otherUsers, currentUser])
+
+        await fsPromises.writeFile(usersFilePath, JSON.stringify(userDB.users, null, 2))
+
+        res.cookie("JWT", refreshToken, { httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000 })
+
+        res.join({ accessToken })
 
     }else{
 
