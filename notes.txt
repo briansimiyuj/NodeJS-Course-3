@@ -1,10 +1,9 @@
-We now create `authController.js` to handle the signin logic
+JWT stands for JSON Web Token. It is a form of user identification that is given to the user after they have logged in. 
+When a user is authenticated, REST API will issue two types of tokens: access token and refresh token. Access token is short-lived and refresh token is long-lived.
 
-Let's create a `handleSignIn` route handler in `authController.js`: then we destructure the `req` object to get the `username` and `password` fields. If the `username` and `password` fields are empty, we send back 400 status code with error message. If they are not empty, we check if the username exists in the database. If it doesn't exist, we send back 401 status code with error message. 
-    - 401 status code means unauthorized
+Access tokens are sent as JSON and should not be stored in local storage or cookies; because they can be easily intercepted by attackers. Refresh tokens are sent as httpOnly cookies and they are not exposed to JavaScript. They must have expiry at some point in time.
 
-If the username exists, we compare the password with the hashed password in the database. If the passwords match, we send back 200 status code with success message. If they don't match, we send back 401 status code with error message.
+We need to install the following packages:
+    `npm i dotenv jsonwebtoken cookie-parser`
 
-We create a `auth.js` route to handle the signin route. We instantiate the express router and use the `POST` method to handle the signin route. Then call the `handleSignIn` function
-
-video #9
+video #11
