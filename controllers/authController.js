@@ -54,7 +54,12 @@ const handleSignIn = async(req, res) =>{
 
         await fsPromises.writeFile(usersFilePath, JSON.stringify(userDB.users, null, 2))
 
-        res.cookie("JWT", refreshToken, { httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000 })
+        res.cookie("jwt", refreshToken, { 
+            httpOnly: true, 
+            sameSite: "None", 
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 24 * 60 * 60 * 1000             
+        })
 
         res.json({ accessToken })
 

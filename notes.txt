@@ -6,4 +6,8 @@ We need to verify JWT, this is a callback function that takes `refreshToken`, `p
 
 If everything is fine, we generate a new access token and return it in the response as JSON.
 
+Then we create a `refreshRouter` which is a GET route that calls `handleRefreshToken` function. Finally we use it as a middleware in the `script` file. We place it above the `verifyJWT` middleware.
+
+NB: Cookies are always sent via https, so in `authController` we need to set `secure: false` to allow cookies to be sent in development mode.
+
 video #11

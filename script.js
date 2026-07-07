@@ -14,6 +14,7 @@ import corsOptions from "./config/corsOptions.js"
 import registerRouter from "./routes/register.js"
 import authRouter from "./routes/auth.js"
 import verifyJWT from "./middleware/verifyJWT.js"
+import refreshRouter from "./routes/refreshRoute.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -39,6 +40,8 @@ app.use("/", rootRouter)
 app.use("/register", registerRouter)
 
 app.use("/auth", authRouter)
+
+app.use("/refresh", refreshRouter)
 
 app.use(verifyJWT)
 

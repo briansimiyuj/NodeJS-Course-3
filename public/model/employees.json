@@ -39,12 +39,13 @@
     "password": "$2b$10$mW5PgtBJbBwvRdXUXwNTD.1UInPcMqptopPycjFvs1Ob30K2oWrFW"
   },
   {
-    "username": "Njeri",
-    "password": "$2b$10$YHcZwDscP4zQc6fHNZ40VOHo5mzQMk4CiTYVleImXEGtxDy/j.lDS"
-  },
-  {
     "username": "test1",
     "password": "$2b$10$DpqG5jYrVHawuoY2tmZoqurjtJpFQoI.cx1at25zV.00ucGONoIAW",
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiaWF0IjoxNzgzMzI3NjU1LCJleHAiOjE3ODM0MTQwNTV9.WJ_WEeo8xgKN2_WgZr0_xQ0en_s8ftOEHMWTJjNmXLM"
+  },
+  {
+    "username": "Njeri",
+    "password": "$2b$10$a9AaqTjO6uTaAV1ekfADROtrHkrUFZCcdpdZ8Ai919Pec5XGoL10O",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5qZXJpIiwiaWF0IjoxNzgzNDEzNjMxLCJleHAiOjE3ODM1MDAwMzF9.yGPzkd6ETNtttBrxfZ9kik01KUn-O8ZJ9AqU_Dvlwvc"
   }
 ]
