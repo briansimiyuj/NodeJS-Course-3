@@ -15,6 +15,7 @@ import registerRouter from "./routes/register.js"
 import authRouter from "./routes/auth.js"
 import verifyJWT from "./middleware/verifyJWT.js"
 import refreshRouter from "./routes/refreshRoute.js"
+import logoutRouter from "./routes/logoutRoute.js"
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
@@ -42,6 +43,8 @@ app.use("/register", registerRouter)
 app.use("/auth", authRouter)
 
 app.use("/refresh", refreshRouter)
+
+app.use("/logout", logoutRouter)
 
 app.use(verifyJWT)
 

@@ -6,4 +6,6 @@ Let's retreive cookies from the request object, if we don't have any cookies wit
 
 Let's define the `refreshToken` variable and assign it the value of `cookies.jwt`, then we will find the user in database with that `refreshToken`. If we don't find any user with that `refreshToken`, we will clear the cookie. If we find the user, we will remove the `refreshToken` from the user object and save the updated user object to the database. Finally we will clear the cookie and send a 204 status code.
 
+We also create a `logoutRoute` and call `handleLogout` function.
+
 video #11
