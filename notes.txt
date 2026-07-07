@@ -1,13 +1,9 @@
-Let's create a `refreshTokenController` that will handle the refresh token logic. Then we create `handleRefreshToken` function which takes request and response as arguments. We retreive cookies from the request object, if there no cookies we return a 401 status code.
+Let's create a `logoutController.js` that will be responsible for logging out a user and revoking their refresh token.
 
-If there are cookies, we set `refreshToken` to the value of `cookies.JWT`. Then find a user in the database with the `refreshToken` that we just set. If there is no user, we return a 403 status code.
+First, let's create `handleLogout` function which takes `req` and `res` as parameters: `accessToken` is usually deleted from the frontend.
 
-We need to verify JWT, this is a callback function that takes `refreshToken`, `payload` which is the refresh token from .env file and `err` and `decoded` as arguments. If there is an error or if the found user name is not equal to the `decoded` name, we return a 403 status code.
+Let's retreive cookies from the request object, if we don't have any cookies with JWT, we will send a 204 status code which means no content.
 
-If everything is fine, we generate a new access token and return it in the response as JSON.
-
-Then we create a `refreshRouter` which is a GET route that calls `handleRefreshToken` function. Finally we use it as a middleware in the `script` file. We place it above the `verifyJWT` middleware.
-
-NB: Cookies are always sent via https, so in `authController` we need to set `secure: false` to allow cookies to be sent in development mode.
+Let's define the `refreshToken` variable and assign it the value of `cookies.jwt`, then we will find the user in database with that `refreshToken`. If we don't find any user with that `refreshToken`, we will clear the cookie. If we find the user, we will remove the `refreshToken` from the user object and save the updated user object to the database. Finally we will clear the cookie and send a 204 status code.
 
 video #11
