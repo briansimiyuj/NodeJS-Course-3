@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import JWT from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import fsPromises from "fs/promises"
 import path, { dirname, join } from "path"
 import { fileURLToPath } from "url"
@@ -17,24 +17,25 @@ const userDB ={
 
 }
 
-const handleRefreshToken = (req, res) =>{
+const handleRefreshToken = async(req, res) =>{
 
     const cookies = req.cookies 
 
-    if(!cookies?.JWT) return res.sendStatus(401)
+    if(!cookies?.jwt) return res.sendStatus(401)
 
-    console.log(cookies.JWT)
+    console.log(cookies.jwt)
 
-    const refreshToken = cookies.JWT,
-          foundUser = userDB.users.find(person => person.refreshToken === refreshToken)
+    const refreshToken = cookies.jwt,
+          freshUsers = JSON.parse(await fsPromises.readFile(usersFilePath, "utf-8")),
+          foundUser = freshUsers.find(person => person.refreshToken === refreshToken)
 
     if(!foundUser) return res.sendStatus(403)
 
-    JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) =>{
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) =>{
 
         if(err || foundUser.username !== decoded.username) return res.sendStatus(403)
 
-        const accessToken = JWT.sign(
+        const accessToken = jwt.sign(
 
             { "username": decoded.username },
             process.env.ACCESS_TOKEN_SECRET,
