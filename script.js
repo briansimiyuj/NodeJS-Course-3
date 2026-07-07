@@ -5,6 +5,7 @@ import http from "http"
 import path, { dirname, join } from "path"
 import fs from "fs"
 import express from "express"
+import cookieParser from "cookie-parser"
 import { fileURLToPath } from "url"
 import errorHandler from "./middleware/errorHandler.js"
 import rootRouter from "./routes/root.js"
@@ -28,6 +29,8 @@ app.use(cors(corsOptions))
 app.use(express.urlencoded({ extended: false }))
 
 app.use(express.json())
+
+app.use(cookieParser())
 
 app.use(express.static(join(__dirName, "public")))
 

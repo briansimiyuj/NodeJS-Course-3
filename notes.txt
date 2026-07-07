@@ -1,11 +1,9 @@
-Now let's create a new middleware to verify JWT, it will be a function called verifyJWT, it will take a request and a response and a next function, and it will check if the request has a valid JWT token. See `middleware/verifyJWT.js`
+Let's create a `refreshTokenController` that will handle the refresh token logic. Then we create `handleRefreshToken` function which takes request and response as arguments. We retreive cookies from the request object, if there no cookies we return a 401 status code.
 
-Then in our employees route, we need to pass verifyJWT in every route that requires authentication, for example:
-    `route.get('/employees', verifyJWT, getEmployees)`
+If there are cookies, we set `refreshToken` to the value of `cookies.JWT`. Then find a user in the database with the `refreshToken` that we just set. If there is no user, we return a 403 status code.
 
-If we want to protect certain routes, we can place verifyJWT middleware at the top of the route, for example:
+We need to verify JWT, this is a callback function that takes `refreshToken`, `payload` which is the refresh token from .env file and `err` and `decoded` as arguments. If there is an error or if the found user name is not equal to the `decoded` name, we return a 403 status code.
 
-    `app.use(${verifyJWT})
-    app.use(${router})`
+If everything is fine, we generate a new access token and return it in the response as JSON.
 
 video #11
