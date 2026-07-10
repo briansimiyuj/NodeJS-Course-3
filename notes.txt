@@ -1,11 +1,6 @@
-Let's create a `logoutController.js` that will be responsible for logging out a user and revoking their refresh token.
+Authentication is the process of verifying who someone is.
+Authorization is the process of determining what resources a user has access to.
 
-First, let's create `handleLogout` function which takes `req` and `res` as parameters: `accessToken` is usually deleted from the frontend.
+Let's define a list of roles with some code: Admin, Editor and User.
 
-Let's retreive cookies from the request object, if we don't have any cookies with JWT, we will send a 204 status code which means no content.
-
-Let's define the `refreshToken` variable and assign it the value of `cookies.jwt`, then we will find the user in database with that `refreshToken`. If we don't find any user with that `refreshToken`, we will clear the cookie. If we find the user, we will remove the `refreshToken` from the user object and save the updated user object to the database. Finally we will clear the cookie and send a 204 status code.
-
-We also create a `logoutRoute` and call `handleLogout` function.
-
-video #11
+video 12
