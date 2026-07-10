@@ -1,9 +1,11 @@
-import employees from "../public/model/employees.json" with { type: "json" }
+import employeesData from "../public/model/employees.json" with { type: "json" }
+
+let employees = employeesData
 
 const data ={
 
     employees: employees,
-    setEmployees: data => employees = data
+    setEmployees: newData => employees = newData
 
 }
 
