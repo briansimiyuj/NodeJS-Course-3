@@ -1,6 +1,8 @@
 import express from "express"
 import path from "path"
 import { createNewEmployee, deleteEmployee, getAllEmployees, getEmployee, updateEmployee } from "../../controllers/employeeController.js"
+import verifyRoles from "../../middleware/verifyRoles.js"
+import { rolesList } from "../../config/rolesList.js"
 
 const employeesRouter = express.Router(),
       data = {}
@@ -8,11 +10,11 @@ const employeesRouter = express.Router(),
 employeesRouter.route("/")
     .get(getAllEmployees)
 
-    .post(createNewEmployee)
+    .post(verifyRoles(rolesList.Admin, rolesList.Editor), createNewEmployee)
 
-    .put(updateEmployee)
+    .put(verifyRoles(rolesList.Admin, rolesList.Editor), updateEmployee)
 
-    .delete(deleteEmployee)
+    .delete(verifyRoles(rolesList.Admin), deleteEmployee)
 
 employeesRouter.route("/:id")
     .get(getEmployee) 
