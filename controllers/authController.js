@@ -32,9 +32,11 @@ const handleSignIn = async(req, res) =>{
 
     if(match){
 
+        const roles = Object.values(foundUser.roles)
+
         const accessToken = JWT.sign(
 
-            { "username": foundUser.username },
+            { "UserInfo": { "username": foundUser.username, "roles": roles } },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: "120s" }
 

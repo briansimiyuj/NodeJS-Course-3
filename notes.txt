@@ -3,4 +3,10 @@ Authorization is the process of determining what resources a user has access to.
 
 Let's define a list of roles with some code: Admin, Editor and User.
 
+In `registerController.js`:  we can update the `newUser` object to include a `role` property.
+
+Then in `authController.js`: if there is a match, we flatten the user object and assign it to `roles`. We update the `accessToken` to include the `roles` property in the payload.
+
+In `refreshTokenController.js`: we update the `accessToken` to include the `roles` property in the payload.
+
 video 12
