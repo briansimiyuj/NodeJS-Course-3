@@ -17,8 +17,11 @@ import authRouter from "./routes/auth.js"
 import verifyJWT from "./middleware/verifyJWT.js"
 import refreshRouter from "./routes/refreshRoute.js"
 import logoutRouter from "./routes/logoutRoute.js"
+import connectDB from "./config/DBConnect.js"
 
 dotenv.config()
+
+connectDB()
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,
