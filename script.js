@@ -5,6 +5,7 @@ import http from "http"
 import path, { dirname, join } from "path"
 import fs from "fs"
 import express from "express"
+import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
 import { fileURLToPath } from "url"
 import errorHandler from "./middleware/errorHandler.js"
@@ -16,6 +17,8 @@ import authRouter from "./routes/auth.js"
 import verifyJWT from "./middleware/verifyJWT.js"
 import refreshRouter from "./routes/refreshRoute.js"
 import logoutRouter from "./routes/logoutRoute.js"
+
+dotenv.config()
 
 const emitter = new EventEmitter(),
       PORT = process.env.PORT || 3000,

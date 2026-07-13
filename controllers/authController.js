@@ -1,11 +1,8 @@
 import fsPromises from "fs/promises"
-import dotenv from "dotenv"
 import JWT from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import path, { dirname, join } from "path"
 import { fileURLToPath } from "url"
-
-dotenv.config()
 
 const __fileName = fileURLToPath(import.meta.url),
       __dirName = path.dirname(__fileName),
