@@ -1,11 +1,6 @@
-MongoDB is a NoSQL database that stores data in a flexible, JSON-like format called BSON (Binary JSON). It stores data in collections, each collection contains documents which is individual data entities.
+A Schema determines the structure of the document
+A Model is a constructor function that creates documents with the defined schema
 
-Advantages of MongoDB:
-   1. Performance: MongoDB is designed for high performance and scalability.
-   2. Flexibility: MongoDB is easy to make structural changes
-   3. Scalability: MongoDB can support high request rate
+Mongoose automatically pluralizes and decaptilizes the model name to create the collection name
 
-We need to install `mongoose` package with the following command:
-   `npm i mongoose`
-
-video  #13
+video #14
