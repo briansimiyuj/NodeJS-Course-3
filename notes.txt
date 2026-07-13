@@ -5,4 +5,7 @@ Advantages of MongoDB:
    2. Flexibility: MongoDB is easy to make structural changes
    3. Scalability: MongoDB can support high request rate
 
-video  #12
+We need to install `mongoose` package with the following command:
+   `npm i mongoose`
+
+video  #13
