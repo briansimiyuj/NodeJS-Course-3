@@ -1,9 +1,8 @@
-Let's create a new middleware called "verifyRoles" that will check if the user has the required roles to access certain resources. `verifyRoles` function takes in `roles` as an argument; it will accept any number of roles. 
+MongoDB is a NoSQL database that stores data in a flexible, JSON-like format called BSON (Binary JSON). It stores data in collections, each collection contains documents which is individual data entities.
 
-In `verifyRoles`, we will return a middleware function that takes in `req`, `res`, and `next`. Inside this middleware function, we will check if the `req` has a `role` property. If it doesn't, we will return a 401 error which means "Unauthorized".
+Advantages of MongoDB:
+   1. Performance: MongoDB is designed for high performance and scalability.
+   2. Flexibility: MongoDB is easy to make structural changes
+   3. Scalability: MongoDB can support high request rate
 
-If the `req` has a `role` property, we spread out the `roles` array and check if the `req.role` is included in the `roles` array. If it is, we call `next()` to pass control to the next middleware function. If it's not, we return a 401 error.
-
-In `employeesRoute`, we need to use the `verifyRoles` middleware for the `post` and `put` routes to ensure that only users with the "admin" and "editor" roles can create and update employees. But for the `delete` route, we only want users with the "admin" role to be able to delete employees. For `get` routes, we don't need to use the `verifyRoles` middleware since anyone can access the list of employees.
-
-video 12
+video  #12
