@@ -1,19 +1,6 @@
-import fsPromises from "fs/promises"
 import JWT from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import path, { dirname, join } from "path"
-import { fileURLToPath } from "url"
-
-const __fileName = fileURLToPath(import.meta.url),
-      __dirName = path.dirname(__fileName),
-      usersFilePath = join(__dirName, "../public/model/employees.json")
-
-const userDB ={
-
-    users: JSON.parse(await fsPromises.readFile(usersFilePath, "utf-8")),
-    setUsers: function(data){ this.users = data }
-
-}
+import User from "../public/model/User.js"
 
 const handleSignIn = async(req, res) =>{
 
@@ -21,15 +8,17 @@ const handleSignIn = async(req, res) =>{
 
     if(!username || !password) return res.status(400).json({ "message": "Username and password are required." })
 
-    const foundUser = userDB.users.find(person => person.username === username)
+    const foundUser = await User.findOne({ username: username })
 
     if(!foundUser) return res.sendStatus(401)
 
     const match = await bcrypt.compare(password, foundUser.password)
 
-    if(match){
+    if(!match) return res.sendStatus(401)
 
-        const roles = Object.values(foundUser.roles)
+    try{
+    
+        const roles = Object.values(foundUser.roles).filter(Boolean)
 
         const accessToken = JWT.sign(
 
@@ -46,12 +35,13 @@ const handleSignIn = async(req, res) =>{
 
         )
 
-        const otherUsers = userDB.users.filter(person => person.username !== foundUser.username),
-              currentUser = { ...foundUser, refreshToken }
+        await User.findOneAndUpdate(
 
-        userDB.setUsers([...otherUsers, currentUser])
+            { username },
+            { refreshToken },
+            { new: true }
 
-        await fsPromises.writeFile(usersFilePath, JSON.stringify(userDB.users, null, 2))
+        )
 
         res.cookie("jwt", refreshToken, { 
             httpOnly: true, 
@@ -61,11 +51,11 @@ const handleSignIn = async(req, res) =>{
         })
 
         res.json({ accessToken })
-
-    }else{
-
-        res.sendStatus(401)
-
+    
+    }catch(err){
+    
+        res.status(500).json({ "message": err.message })
+    
     }
 
 }
