@@ -75,9 +75,9 @@ const updateEmployee = async(req, res) =>{
 
 }
 
-const deleteEmployee = ((req, res) =>{
+const deleteEmployee = async(req, res) =>{
         
-    const employee = data.employees.find(employee => employee._id === parseInt(req.body.id))
+    const employee = await Employee.findOne({ _id: req.params.id })
 
     if(!employee){
 
@@ -85,12 +85,10 @@ const deleteEmployee = ((req, res) =>{
 
     }
 
-    const filteredArray = data.employees.filter(employee => employee._id !== parseInt(req.body.id))
+    await Employee.findByIdAndDelete(req.params.id)
 
-    data.setEmployees(...filteredArray)
+    res.json({ "message": `Employee ${req.params.id} deleted` })
 
-    res.json(data.employees)
-
-})
+}
 
 export { getAllEmployees, getEmployee, createNewEmployee, updateEmployee, deleteEmployee }
