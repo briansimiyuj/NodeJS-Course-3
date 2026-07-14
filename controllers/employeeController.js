@@ -1,13 +1,4 @@
-import employeesData from "../public/model/employees.json" with { type: "json" }
-
-let employees = employeesData
-
-const data ={
-
-    employees: employees,
-    setEmployees: newData => employees = newData
-
-}
+import Employee from "../public/model/Employee.js"
 
 const getAllEmployees = (req, res) =>{
     
@@ -29,15 +20,14 @@ const getEmployee = (req, res) =>{
 
 }
 
-const createNewEmployee = (req, res) =>{
+const createNewEmployee = async(req, res) =>{
 
-    const newEmployee ={
-
-        "_id": data.employees[data.employees.length - 1]._id + 1,
+    const newEmployee = new Employee({
+        
         "firstName": req.body.firstName,
         "lastName": req.body.lastName
 
-    }
+    })
 
     if(!newEmployee.firstName || !newEmployee.lastName){
 
@@ -45,9 +35,9 @@ const createNewEmployee = (req, res) =>{
 
     }
 
-    data.setEmployees([...data.employees, newEmployee])
-
-    res.json(data.employees)
+    await newEmployee.save()    
+            .then(result => res.redirect("/"))
+            .catch(err => console.log(err))
 
 }
 
