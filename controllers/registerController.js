@@ -3,7 +3,7 @@ import User from "../public/model/User.js"
 
 const handleNewUser = async(req, res) =>{
 
-    const { username, password } = req.body
+    const { username, password, roles } = req.body
 
     if(!username || !password) return res.status(400).json({ "message": "Username and password are required." })
 
@@ -15,12 +15,28 @@ const handleNewUser = async(req, res) =>{
     
         const hashedPassword = await bcrypt.hash(password, 10)  
         
-        const newUser = await User.create({ 
-            "username": username, 
-            "password": hashedPassword
-        })
+        const userData ={
 
-        res.status(201).json({ "success": `New user ${username} created!` })
+            "username": username,
+            "password": hashedPassword
+
+        }
+
+        if(roles) userData.roles = roles
+
+        const newUser = await User.create(userData)
+
+        res.status(201).json({
+
+            "success": `New user ${newUser.username} created!`,
+            "user":{
+
+                "username": newUser.username,
+                "roles": newUser.roles
+
+            }
+
+        })
 
     }catch(e){
     
