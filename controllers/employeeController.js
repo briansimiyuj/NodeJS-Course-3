@@ -9,9 +9,9 @@ const getAllEmployees = async(req, res) =>{
     
 }
 
-const getEmployee = (req, res) =>{
+const getEmployee = async(req, res) =>{
     
-    const employee = data.employees.find(employee => employee._id === parseInt(req.body.id))
+    const employee = await Employee.findOne({ _id: req.params.id })
 
     if(!employee){
 
