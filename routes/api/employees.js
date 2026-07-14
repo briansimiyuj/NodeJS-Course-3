@@ -13,11 +13,10 @@ employeesRouter.route("/")
 
     .post(verifyJWT, verifyRoles(rolesList.Admin, rolesList.Editor), createNewEmployee)
 
-    .put(verifyJWT, verifyRoles(rolesList.Admin, rolesList.Editor), updateEmployee)
-
     .delete(verifyJWT, verifyRoles(rolesList.Admin), deleteEmployee)
 
 employeesRouter.route("/:id")
     .get(getEmployee) 
+    .put(verifyJWT, verifyRoles(rolesList.Admin, rolesList.Editor), updateEmployee)
 
 export default employeesRouter

@@ -44,9 +44,9 @@ const createNewEmployee = async(req, res) =>{
 
 }
 
-const updateEmployee = (req, res) =>{
+const updateEmployee = async(req, res) =>{
 
-    const employee = data.employees.find(employee => employee._id === parseInt(req.body.id))
+    const employee = await Employee.findOne({ _id: req.params.id })
 
     if(!employee){
         
@@ -66,12 +66,12 @@ const updateEmployee = (req, res) =>{
 
     }
 
-    const filteredArray = data.employees.filter(employee => employee._id !== parseInt(req.body.id)),
-          unsortedArray = [...filteredArray, employee]
+    const ID = req.params.id,
+          updatedEmployee = await Employee.findByIdAndUpdate(ID, employee, { new: true })
 
-    data.setEmployees(unsortedArray.sort((a, b) => a._id > b._id ? 1 : a._id < b._id ? -1 : 0))
+    if(!updatedEmployee) return res.status(400).json({ "message": `Employee ${req.body.id} not found` })
 
-    res.json(data.employees)
+    res.json(updatedEmployee)
 
 }
 
