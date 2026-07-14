@@ -1,17 +1,4 @@
-import fsPromises from "fs/promises"
-import path, { dirname, join } from "path"
-import { fileURLToPath } from "url"
-
-const __fileName = fileURLToPath(import.meta.url),
-      __dirName = path.dirname(__fileName),
-      usersFilePath = join(__dirName, "../public/model/employees.json")
-
-const userDB ={
-
-    users: JSON.parse(await fsPromises.readFile(usersFilePath, "utf-8")),
-    setUsers: function(data){ this.users = data }
-
-}
+import User from "../public/model/User.js"
 
 const handleLogout = async(req, res) =>{
 
@@ -20,7 +7,7 @@ const handleLogout = async(req, res) =>{
     if(!cookies?.jwt) return res.sendStatus(204) 
 
     const refreshToken = cookies.jwt,
-          foundUser = userDB.users.find(person => person.refreshToken === refreshToken)
+          foundUser = await User.findOne({ refreshToken })
 
     if(!foundUser){
 
@@ -35,12 +22,12 @@ const handleLogout = async(req, res) =>{
 
     }
 
-    const otherUsers = userDB.users.filter(person => person.refreshToken !== foundUser.refreshToken),
-          currentUser = { ...foundUser, refreshToken: "" }
+    await User.findOneAndUpdate(
 
-    userDB.setUsers([...otherUsers, currentUser])
+        { refreshToken },
+        { refreshToken: "" }
 
-    await fsPromises.writeFile(usersFilePath, JSON.stringify(userDB.users)) 
+    )
 
     res.clearCookie("jwt", refreshToken, { 
         httpOnly: true, 
@@ -48,6 +35,8 @@ const handleLogout = async(req, res) =>{
         secure: process.env.NODE_ENV === "production",
         maxAge: 24 * 60 * 60 * 1000             
     })
+
+    console.log('User has been logged out')
 
     res.sendStatus(204)
 
