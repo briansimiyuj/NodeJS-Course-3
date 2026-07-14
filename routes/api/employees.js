@@ -1,6 +1,7 @@
 import express from "express"
 import path from "path"
 import { createNewEmployee, deleteEmployee, getAllEmployees, getEmployee, updateEmployee } from "../../controllers/employeeController.js"
+import verifyJWT from "../../middleware/verifyJWT.js"
 import verifyRoles from "../../middleware/verifyRoles.js"
 import { rolesList } from "../../config/rolesList.js"
 
@@ -10,11 +11,11 @@ const employeesRouter = express.Router(),
 employeesRouter.route("/")
     .get(getAllEmployees)
 
-    .post(verifyRoles(rolesList.Admin, rolesList.Editor), createNewEmployee)
+    .post(verifyJWT, verifyRoles(rolesList.Admin, rolesList.Editor), createNewEmployee)
 
-    .put(verifyRoles(rolesList.Admin, rolesList.Editor), updateEmployee)
+    .put(verifyJWT, verifyRoles(rolesList.Admin, rolesList.Editor), updateEmployee)
 
-    .delete(verifyRoles(rolesList.Admin), deleteEmployee)
+    .delete(verifyJWT, verifyRoles(rolesList.Admin), deleteEmployee)
 
 employeesRouter.route("/:id")
     .get(getEmployee) 

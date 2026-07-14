@@ -14,7 +14,6 @@ import employeesRouter from "./routes/api/employees.js"
 import corsOptions from "./config/corsOptions.js"
 import registerRouter from "./routes/register.js"
 import authRouter from "./routes/auth.js"
-import verifyJWT from "./middleware/verifyJWT.js"
 import refreshRouter from "./routes/refreshRoute.js"
 import logoutRouter from "./routes/logoutRoute.js"
 import connectDB from "./config/DBConnect.js"
@@ -51,8 +50,6 @@ app.use("/auth", authRouter)
 app.use("/refresh", refreshRouter)
 
 app.use("/logout", logoutRouter)
-
-app.use(verifyJWT)
 
 app.use("/employees", employeesRouter)
 

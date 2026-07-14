@@ -1,6 +1,9 @@
 import Employee from "../public/model/Employee.js"
 
-const getAllEmployees = (req, res) =>{
+const getAllEmployees = async(req, res) =>{
+
+    const employees = await Employee.find()
+                        .sort({ _id: -1 })
     
     res.json(employees)
     
@@ -23,7 +26,7 @@ const getEmployee = (req, res) =>{
 const createNewEmployee = async(req, res) =>{
 
     const newEmployee = new Employee({
-        
+
         "firstName": req.body.firstName,
         "lastName": req.body.lastName
 
