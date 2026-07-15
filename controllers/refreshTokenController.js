@@ -1,18 +1,5 @@
 import jwt from "jsonwebtoken"
-import fsPromises from "fs/promises"
-import path, { dirname, join } from "path"
-import { fileURLToPath } from "url"
-
-const __fileName = fileURLToPath(import.meta.url),
-      __dirName = path.dirname(__fileName),
-      usersFilePath = join(__dirName, "../public/model/employees.json")
-
-const userDB ={
-
-    users: JSON.parse(await fsPromises.readFile(usersFilePath, "utf-8")),
-    setUsers: function(data){ this.users = data }
-
-}
+import User from "../public/model/User.js"
 
 const handleRefreshToken = async(req, res) =>{
 
@@ -23,8 +10,7 @@ const handleRefreshToken = async(req, res) =>{
     console.log(cookies.jwt)
 
     const refreshToken = cookies.jwt,
-          freshUsers = JSON.parse(await fsPromises.readFile(usersFilePath, "utf-8")),
-          foundUser = freshUsers.find(person => person.refreshToken === refreshToken)
+          foundUser = await User.findOne({ refreshToken }).exec()
 
     if(!foundUser) return res.sendStatus(403)
 
