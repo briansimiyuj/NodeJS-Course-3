@@ -4,7 +4,9 @@ const getAllEmployees = async(req, res) =>{
 
     const employees = await Employee.find()
                         .sort({ _id: -1 })
-    
+
+    if(!employees) return res.status(204).json({ "message": "No employees found." })
+
     res.json(employees)
     
 }
@@ -15,7 +17,7 @@ const getEmployee = async(req, res) =>{
 
     if(!employee){
 
-        return res.status(400).json({ "message": `Employee ${req.body.id} not found` })
+        return res.status(400).json({ "message": `Employee ${req.params.id} not found` })
 
     }
 
@@ -39,7 +41,13 @@ const createNewEmployee = async(req, res) =>{
     }
 
     await newEmployee.save()    
-            .then(result => res.redirect("/"))
+            .then(result =>{
+
+                res.status(201).json(result)
+
+                res.redirect("/")
+                
+            })
             .catch(err => console.log(err))
 
 }
