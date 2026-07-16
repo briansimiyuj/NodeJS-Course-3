@@ -7,12 +7,36 @@ const handleRefreshToken = async(req, res) =>{
 
     if(!cookies?.jwt) return res.sendStatus(401)
 
-    console.log(cookies.jwt)
+    const refreshToken = cookies.jwt
+    
+    res.clearCookie("jwt", refreshToken, { 
+        httpOnly: true, 
+        sameSite: "None", 
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 24 * 60 * 60 * 1000             
+    })
+    
+    const foundUser = await User.findOne({ refreshToken }).exec()
 
-    const refreshToken = cookies.jwt,
-          foundUser = await User.findOne({ refreshToken }).exec()
+    if(!foundUser){
 
-    if(!foundUser) return res.sendStatus(403)
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async(err, decoded) =>{
+
+            if(err) return res.sendStatus(403)
+
+            const hackedUser = await User.findOne({ username: decoded.username }).exec()
+
+            hackedUser.refreshToken = []
+
+            const result = await hackedUser.save()
+
+            console.log(result)
+
+        })
+        
+        return res.sendStatus(403)
+
+    }
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) =>{
 

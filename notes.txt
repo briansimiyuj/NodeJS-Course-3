@@ -1,6 +1,5 @@
-A Schema determines the structure of the document
-A Model is a constructor function that creates documents with the defined schema
+Refresh Token Rotation is a security feature that allows us to issue a new refresh token when a new access token is issued. 
+This means a refresh token can only be used once, after which it is automatically revoked and a new one is issued.
 
-Mongoose automatically pluralizes and decaptilizes the model name to create the collection name
-
-video #14
+In the User Schema, let's make `refreshToken` a string array instead of a single string. 
+In `refreshTokenController`, once we generate a new refresh token, we need to clear it first. Then we need to verify if the user already has the old refresh token. If they do, we need to delete it from the database. 
