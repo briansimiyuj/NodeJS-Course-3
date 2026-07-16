@@ -11,7 +11,7 @@ const handleLogout = async(req, res) =>{
 
     if(!foundUser){
 
-        res.clearCookie("jwt", refreshToken, { 
+        res.clearCookie("jwt", { 
             httpOnly: true, 
             sameSite: "None", 
             secure: process.env.NODE_ENV === "production",
@@ -22,12 +22,18 @@ const handleLogout = async(req, res) =>{
 
     }
 
-    await User.findOneAndUpdate(
+    const results = await User.findOneAndUpdate(
 
-        { refreshToken },
-        { refreshToken: foundUser.refreshToken.filter(rt => rt !== refreshToken) }
+        { _id: foundUser._id },
+        { refreshToken: foundUser.refreshToken.filter(rt => rt !== refreshToken) },
+        { new: true }
 
     )
+
+    console.log('results:', results)
+
+    console.log("Token removed:", !results.refreshToken.includes(refreshToken))
+
 
     res.clearCookie("jwt", refreshToken, { 
         httpOnly: true, 

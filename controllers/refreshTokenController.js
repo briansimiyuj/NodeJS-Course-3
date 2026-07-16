@@ -74,7 +74,7 @@ const handleRefreshToken = async(req, res) =>{
 
         await User.findOneAndUpdate(
 
-            { username },
+            { username: foundUser.username },
             { refreshToken: [...newRefreshTokenArray, newRefreshToken]},
             { new: true }
 

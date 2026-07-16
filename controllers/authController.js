@@ -39,22 +39,23 @@ const handleSignIn = async(req, res) =>{
 
         if(cookie?.jwt){
             
-            res.clearCookie("jwt", refreshToken, { 
+            res.clearCookie("jwt", { 
                 httpOnly: true, 
                 sameSite: "None", 
-                secure: process.env.NODE_ENV === "production",
-                maxAge: 24 * 60 * 60 * 1000             
+                secure: true
             })
 
         }
 
-        await User.findOneAndUpdate(
+        const results  = await User.findOneAndUpdate(
 
             { username },
             { refreshToken: [...newRefreshTokenArray, newRefreshToken]},
             { new: true }
 
         )
+
+        console.log(results)
 
         res.cookie("jwt", newRefreshToken, { 
             httpOnly: true, 
