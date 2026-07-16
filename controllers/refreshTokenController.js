@@ -38,7 +38,19 @@ const handleRefreshToken = async(req, res) =>{
 
     }
 
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) =>{
+    const newRefreshTokenArray = foundUser.refreshToken.filter(rt => rt !== refreshToken)
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async(err, decoded) =>{
+
+        if(err){
+
+            foundUser.refreshToken = [...newRefreshTokenArray]
+
+            const result = await foundUser.save()
+
+            console.log(result)
+
+        }
 
         if(err || foundUser.username !== decoded.username) return res.sendStatus(403)
 
@@ -51,6 +63,29 @@ const handleRefreshToken = async(req, res) =>{
             { expiresIn: "120s" }
 
         )
+
+        const newRefreshToken = JWT.sign(
+        
+            { "username": foundUser.username },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: "1d" }
+
+        )
+
+        await User.findOneAndUpdate(
+
+            { username },
+            { refreshToken: [...newRefreshTokenArray, newRefreshToken]},
+            { new: true }
+
+        )
+
+        res.cookie("jwt", newRefreshToken, { 
+            httpOnly: true, 
+            sameSite: "None", 
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 24 * 60 * 60 * 1000             
+        })
 
         res.json({ accessToken })   
 
