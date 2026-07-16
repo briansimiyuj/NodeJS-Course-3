@@ -25,7 +25,7 @@ const handleLogout = async(req, res) =>{
     await User.findOneAndUpdate(
 
         { refreshToken },
-        { refreshToken: "" }
+        { refreshToken: foundUser.refreshToken.filter(rt => rt !== refreshToken) }
 
     )
 

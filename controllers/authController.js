@@ -4,7 +4,8 @@ import User from "../public/model/User.js"
 
 const handleSignIn = async(req, res) =>{
 
-    const { username, password } = req.body
+    const { username, password } = req.body,
+          cookie = req.cookies  
 
     if(!username || !password) return res.status(400).json({ "message": "Username and password are required." })
 
@@ -27,23 +28,35 @@ const handleSignIn = async(req, res) =>{
             { expiresIn: "120s" }
 
         ),
-        refreshToken = JWT.sign(
+        newRefreshToken = JWT.sign(
 
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: "1d" }
 
-        )
+        ),
+        newRefreshTokenArray = !cookie?.jwt ? foundUser.refreshToken : foundUser.refreshToken.filter(rt => rt !== cookie.jwt)
+
+        if(cookie?.jwt){
+            
+            res.clearCookie("jwt", refreshToken, { 
+                httpOnly: true, 
+                sameSite: "None", 
+                secure: process.env.NODE_ENV === "production",
+                maxAge: 24 * 60 * 60 * 1000             
+            })
+
+        }
 
         await User.findOneAndUpdate(
 
             { username },
-            { refreshToken },
+            { refreshToken: [...newRefreshTokenArray, newRefreshToken]},
             { new: true }
 
         )
 
-        res.cookie("jwt", refreshToken, { 
+        res.cookie("jwt", newRefreshToken, { 
             httpOnly: true, 
             sameSite: "None", 
             secure: process.env.NODE_ENV === "production",
