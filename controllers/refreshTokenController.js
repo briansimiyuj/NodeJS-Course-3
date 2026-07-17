@@ -24,6 +24,8 @@ const handleRefreshToken = async(req, res) =>{
 
             if(err) return res.sendStatus(403)
 
+            console.log('Attempted Refresh Token reuse')
+
             const hackedUser = await User.findOne({ username: decoded.username }).exec()
 
             hackedUser.refreshToken = []
@@ -43,6 +45,8 @@ const handleRefreshToken = async(req, res) =>{
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async(err, decoded) =>{
 
         if(err){
+
+            console.log('expired refresh token')
 
             foundUser.refreshToken = [...newRefreshTokenArray]
 
@@ -64,7 +68,7 @@ const handleRefreshToken = async(req, res) =>{
 
         )
 
-        const newRefreshToken = JWT.sign(
+        const newRefreshToken = jwt.sign(
         
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
